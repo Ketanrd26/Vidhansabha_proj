@@ -125,6 +125,11 @@ export default function Map() {
 
         districtElements.current[name] = el; // store element
 
+        // if (name !== "Ahmednagar") {
+        //   el.style.display = "none";
+        //   return;
+        // }
+
         el.style.fill = BASE;
         el.style.stroke = "#333";
         el.style.strokeWidth = "0.6";
@@ -200,10 +205,6 @@ export default function Map() {
     obj.addEventListener("load", onLoad);
   }, []);
 
-
-
-
-
   /* =========================
      UI
   ========================= */
@@ -213,16 +214,12 @@ export default function Map() {
         <h2>Map of Maharashtra Districts with Assembly</h2>
 
         <div className="map-cont cont">
-        
-           <object
+          <object
             ref={mapRef}
             id="map"
             data="/2011_Dist.svg"
             type="image/svg+xml"
           />
-          
-      
-         
 
           <div className="right-data">
             <input
