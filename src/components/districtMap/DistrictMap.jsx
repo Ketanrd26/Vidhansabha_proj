@@ -9,6 +9,7 @@ const DistrictMap = () => {
   const [hovered, setHovered] = useState(null);
   const [search, setSearch] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const [filterateData, setFilterateData] = useState();
 
   useEffect(() => {
     fetch("/India_AC.geojson")
@@ -52,6 +53,13 @@ const DistrictMap = () => {
     const selectedFeature = district.features.find(
       (item) => item?.properties?.AC_NAME === acName,
     );
+
+    const districtFeatures = district?.features?.filter(
+      (item) =>
+        item?.properties?.DIST_NAME === selectedFeature.properties.DIST_NAME,
+    );
+
+    setFilterateData(districtFeatures);
 
     if (selectedFeature) {
       setHovered(selectedFeature.properties.AC_NAME); // AC highlight
@@ -131,6 +139,16 @@ const DistrictMap = () => {
               ))}
           </ul>
         </div>
+
+     { filterateData &&  <div class="active_list">
+          <h4> {filterateData[0]?.properties?.DIST_NAME} </h4>
+          <ul>
+            {filterateData &&
+              filterateData?.map((item, index) => <li key={index} style={{color:hovered === item?.properties?.AC_NAME ? "red" : ""}} >
+                {item?.properties?.AC_NAME}
+              </li>)}
+          </ul>
+        </div>}
       </div>
     </div>
   );
